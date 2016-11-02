@@ -201,18 +201,18 @@ def leaveRoom(message, args):
     if len(args) == 0:
         mode = "normal"
     else:
-        mode = args(0)
+        mode = args[0]
 
     if mode == "purge":
         PREFS.purgeChat(message.data['room_id'])
-        restart()
+        restart("1", "1")
     elif mode == "ban":
         PREFS.purgeChat(message.data['room_id'])
         PREFS.set(message.data['room_id'], "banned", True)
-        restart()
+        restart("1", "1")
     elif mode == "normal":
         PREFS.set(message.data['room_id'], "active", False)
-        restart()
+        restart("1", "1")
     else:
         message.message.reply("Command expects a mode: normal, purge, ban (No argument implies normal)")
 
