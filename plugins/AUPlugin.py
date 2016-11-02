@@ -17,7 +17,7 @@ LAST_PULL_TIME = int(time.time())
 
 @registerCommand("s", "Get a shortcutted post", "", {})
 def getshortcut(message, args):
-    room = message.data['room']
+    room = message.data['room_id']
 
     if len(args) != 1:
         message.message.reply("Hey, silly! I need a shortcut to check!")

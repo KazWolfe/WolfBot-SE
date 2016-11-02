@@ -16,7 +16,7 @@ from WolfPrefs import SESSION_STORAGE
 # Privilege Escalation
 @registerCommand("addadmin", "Add an Admin to the system.", "", {"superuserNeeded": True})
 def addadmin(message, args):
-    room = message.data['room']
+    room = message.data['room_id']
 
     if len(args) == 0 or len(args) > 1:
         message.message.reply("One argument (user_id) needed!")
@@ -35,7 +35,7 @@ def addadmin(message, args):
 
 @registerCommand("deladmin", "Add an Admin to the system.", "", {"superuserNeeded": True})
 def deladmin(message, args):
-    room = message.data['room']
+    room = message.data['room_id']
 
     if len(args) == 0 or len(args) > 1:
         message.message.reply("One argument (user_id) needed!")
@@ -147,7 +147,7 @@ def blacklistUser(message, args):
         message.message.reply("Needs one argument (user_id)")
         return None
 
-    room = message.data['room']
+    room = message.data['room_id']
 
     user_to_bl = args[0]
     
@@ -168,7 +168,7 @@ def unblacklistUser(message, args):
         message.message.reply("Needs one argument (user_id)")
         return None
 
-    room = message.data['room']
+    room = message.data['room_id']
 
     user_to_unbl = args[0]
     
