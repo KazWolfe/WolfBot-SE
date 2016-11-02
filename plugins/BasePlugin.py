@@ -63,7 +63,7 @@ def setprefix(message, args):
         message.message.reply("Prefix globally reset to default of `!!/`.")
 
         for room in SESSION_STORAGE.get("in_rooms"):
-            if room.id != message.data['room_id']:
+            if room != message.data['room_id']:
                 room.send_message("The bot prefix has been set to `!!/` by " + WolfUtils.getName(message.data['user_id']) + ".")
     else:
         PREFS.set("global", "command_delimiter", args[0])
@@ -71,7 +71,7 @@ def setprefix(message, args):
         message.message.reply("Prefix globally set to `" + args[0] + "`.")
 
         for room in SESSION_STORAGE.get("in_rooms"):
-            if room.id != message.data['room_id']:
+            if room != message.data['room_id']:
                 room.send_message("The bot prefix has been set to `" + args[0] + "` by " + WolfUtils.getName(message.data['user_id']) + ".")
         
 @registerCommand("setrprefix", "Change the bot reply prefix", "", {"superuserNeeded": True})

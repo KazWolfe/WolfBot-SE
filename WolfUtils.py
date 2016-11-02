@@ -68,6 +68,6 @@ def isAdmin(user_id, room_id):
     elif isDeveloper(user_id):
         return True
     else:
-        return isRoomOwner(room_id, user_id)
+        return isRoomOwner(user_id, room_id)
         
 
