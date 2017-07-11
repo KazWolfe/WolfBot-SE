@@ -9,6 +9,8 @@ from WolfPlugin import registerCommand, registerTask, registerListener
 from WolfPrefs import PREFS
 from WolfPrefs import SESSION_STORAGE
 
+from BasePlugin import restart
+
 gitRepo = Repo(os.path.abspath('.'))
 git_base_url = "https://github.com/KazWolfe/WolfBot-SE/commit/"
 
@@ -25,7 +27,7 @@ def getLatestVersionInfo(branch):
     elif len(onLocal) > 0:
         state = 101
     elif len(onRemote) > 0:
-        state = 102
+        state = 1
     elif str(gitRepo.head.commit) == latestRemote:
         state = 0
 
@@ -65,3 +67,28 @@ def getVersionInfo(message, args):
 
 
     message.message.reply(versionString)
+
+@registerCommand("update", "Update WolfBot to the latest code version", "", {"superuserNeeded": True})
+def updateWolfbot(message, args):
+    commit = str(gitRepo.head.commit)
+    branch = str(gitRepo.active_branch)
+    origin = git.remote.Remote(gitRepo, 'origin')
+
+    updateCheck = getLatestVersionInfo(branch)
+    updateStatus = updateCheck['state']
+
+    if updateStatus == -1:
+        message.message.reply("Error with updater. Please try again later.")
+        return None
+    elif updateStatus == 0:
+        message.message.reply("No need to update, at latest version.")
+        return None
+    elif updateStatus == 1:
+        origin.pull()
+        message.message.reply("Updated to commit `" \
+            + updateCheck['latest'][-7] + "`. Bot restarting...")
+        restart()
+        return None
+    elif updateStatus >= 100:
+        message.message.reply("Manual update necessary to resolve issues.")
+        return None
