@@ -6,7 +6,7 @@ import json
 import urllib2
 import WolfUtils
 
-import ChatExchange6.chatexchange6 as chatexchange6
+import ChatExchange.chatexchange as chatexchange
 
 from WolfPlugin import registerCommand, registerTask, registerListener
 from WolfPrefs import PREFS
@@ -288,5 +288,5 @@ def deltask(message, args):
 def listenerDeleteMessage(message):
     if message.data["content"] == "@" + SESSION_STORAGE.get("bot_username") + " " + WolfUtils.REPLY_DELIM + "d":
         if WolfUtils.isAdmin(message.data["user_id"], message.data['room_id']):
-            chatexchange6.messages.Message(message.data["parent_id"], message.client).delete()
+            chatexchange.messages.Message(message.data["parent_id"], message.client).delete()
 

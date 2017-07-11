@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
 
-import ChatExchange6.chatexchange6 as chatexchange6
+import ChatExchange.chatexchange as chatexchange
 import time
 import HTMLParser
 import getpass
@@ -25,7 +25,7 @@ def on_message(message, client):
     try:
         LISTENERS.execListeners(message)
 
-        if not isinstance(message, chatexchange6.events.MessagePosted):
+        if not isinstance(message, chatexchange.events.MessagePosted):
             return
 
         content = HTMLParser.HTMLParser().unescape(message.content)
@@ -68,7 +68,7 @@ if PREFS.get("global", "devs", []) == []:
     
 
 # Register the Client to be used
-client = chatexchange6.Client('stackexchange.com')
+client = chatexchange.Client('stackexchange.com')
 client.login(__USER__, __PASS__)
 
 # Get the Bot itself
