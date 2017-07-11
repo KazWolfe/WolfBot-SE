@@ -113,11 +113,11 @@ def reload(message, args):
         message.message.reply("**Preference reload complete.**")
         
 @registerCommand("restart", "Restart the bot", "", {"superuserNeeded": True})
-def restart(message = None, args = None):
+def restart(message=None, args=None):
     os.execl(sys.executable, sys.executable, *sys.argv)
     
 @registerCommand("stop", "Stop the bot", "", {"superuserNeeded": True})
-def stop(message = None, args = None):
+def stop(message=None, args=None):
     os.kill(os.getpid(), signal.SIGTERM)
     
     
@@ -194,7 +194,7 @@ def joinRoom(message, args):
 
     PREFS.set(rid, "active", True)
     message.message.reply("The bot has joined the given room.")
-    restart("1", "1");
+    restart();
 
 @registerCommand("leaveroom", "Have the bot leave the current room.", "", {"superuserNeeded": True})
 def leaveRoom(message, args):
@@ -202,17 +202,29 @@ def leaveRoom(message, args):
         mode = "normal"
     else:
         mode = args[0]
+    
+    c = 0
+    for p in PREFS.all():
+        if p == "global":
+            continue
+        
+        if PREFS.get(p, "active", True):
+            c += 1
+        
+    if c == 1:
+        message.message.reply("Can't leave this room! The bot is in no other rooms. Perhaps use `" + WolfUtils.CMD_DELIM  + "lockdown` or `" + WolfUtils.CMD_DELIM + "stop`.")
+        return
 
     if mode == "purge":
         PREFS.purgeChat(message.data['room_id'])
-        restart("1", "1")
+        restart()
     elif mode == "ban":
         PREFS.purgeChat(message.data['room_id'])
         PREFS.set(message.data['room_id'], "banned", True)
-        restart("1", "1")
+        restart()
     elif mode == "normal":
         PREFS.set(message.data['room_id'], "active", False)
-        restart("1", "1")
+        restart()
     else:
         message.message.reply("Command expects a mode: normal, purge, ban (No argument implies normal)")
 

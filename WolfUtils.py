@@ -32,8 +32,7 @@ def parseCommand(cmd):
     return txt_split[0].replace(CMD_DELIM, "", 1), shlex.split(" ".join(txt_split[1:]).encode('utf-8'))
     
 def webPost(address, data):
-    json = requests.post(address,data).json()
-    return json
+    return requests.post(address,data).json()
     
 def getName(user_id):
     # Every user has a record in CSE, and it doesn't matter what room we get it from. So, Room1 is good.
@@ -45,7 +44,7 @@ def isRoomOwner(user_id, room_id):
     if n is None:
         return False
     else:
-        return n
+        return True
 
 def isSEModerator(user_id):
     # SE Mods have SE admin status across the board. So we can query for Room1.

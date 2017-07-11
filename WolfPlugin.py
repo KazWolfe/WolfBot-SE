@@ -53,7 +53,7 @@ class CommandManager:
                 return None
 
         # Make sure the room isn't on admin lockdown
-        if (PREFS.get(room, "lockdown") and (not WolfUtils.isAdmin(message.data['user_id'], room))):
+        if (PREFS.get(room, "lockdown") and (not WolfUtils.isAdmin(room, message.data['user_id']))):
             return None
 
         command["function"](message, args)
@@ -104,8 +104,8 @@ class ListenerManager:
         room = message.data['room_id']
 
         # Handle potential lockdown
-        if (PREFS.get(room, "lockdown") and (not WolfUtils.isAdmin(message.data['user_id'], room))):
-            return None
+        if (PREFS.get(room, "lockdown") and (not WolfUtils.isAdmin(room, message.data['user_id']))):
+            return
 
         for listenerName in self._listeners:
             listener = self._listeners[listenerName]

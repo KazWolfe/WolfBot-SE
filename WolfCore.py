@@ -1,3 +1,4 @@
+#!/usr/bin/python
 # -*- encoding: utf-8 -*-
 
 import ChatExchange6.chatexchange6 as chatexchange6
