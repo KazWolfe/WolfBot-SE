@@ -188,7 +188,7 @@ def getfilter(message, args):
         "\n\nWords on the filter whitelist:\n" + ", ".join(PREFS.get(message.data['room_id'], "word_filter_whitelist", [])))
     
     
-@registerTask("GetNewEntries", 60)
+@registerTask("rss-watchlist", 60)
 def taskRunFilter(room):
     global LAST_PULL_TIME
 

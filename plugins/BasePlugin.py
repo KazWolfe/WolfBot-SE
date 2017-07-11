@@ -235,13 +235,13 @@ def lockdown(message, args):
     lockdownState = PREFS.get(room, "lockdown", False)
 
     if len(args) == 1:
-        if args(0) == "false" or args(0) == "off":
+        if args[0] == "false" or args[0] == "off":
             if not lockdownState:
                 message.message.reply("Lockdown mode is already disabled.")
             else:
                 PREFS.set(room, "lockdown", False)
                 message.message.reply("Room no longer lockdown. Commands may be freely given, and tasks will run once again.")
-        elif args(0) == "true" or args(0) == "on":
+        elif args[0] == "true" or args[0] == "on":
             if lockdownState:
                 message.message.reply("Lockdown mode is already enabled.")
             else:
@@ -264,11 +264,11 @@ def deltask(message, args):
         message.message.reply("Expected one argument: task_name")
         return
 
-    if (args(0) in currentTasks):
+    if (args[0] in currentTasks):
         message.message.reply("This task is already listed as enabled!")
     else:
-        currentTasks.append(args(0))
-        message.message.reply("The task `" + args(0) + "` is now enabled for this room. Note that it may still need configuration.")
+        currentTasks.append(args[0])
+        message.message.reply("The task `" + args[0] + "` is now enabled for this room. Note that it may still need configuration.")
 
 @registerCommand("deltask", "Remove a task from the list of tasks executable by the bot.", "", {"adminNeeded": True})
 def deltask(message, args):
@@ -278,11 +278,11 @@ def deltask(message, args):
         message.message.reply("Expected one argument: task_name")
         return
 
-    if (args(0) not in currentTasks):
+    if (args[0] not in currentTasks):
         message.message.reply("This task is not listed as enabled!")
     else:
-        currentTasks.remove(args(0))
-        message.message.reply("The task `" + args(0) + "` is now disabled for this room. Note that it may still need configuration.")
+        currentTasks.remove(args[0])
+        message.message.reply("The task `" + args[0] + "` is now disabled for this room. Note that it may still need configuration.")
 
 @registerListener("modtool-deletemsg", 18)
 def listenerDeleteMessage(message):
