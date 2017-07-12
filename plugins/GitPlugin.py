@@ -9,7 +9,7 @@ from WolfPlugin import registerCommand, registerTask, registerListener
 from WolfPrefs import PREFS
 from WolfPrefs import SESSION_STORAGE
 
-import plugins.BasePlugin
+import plugins.BasePlugin as bp
 
 gitRepo = Repo(os.path.abspath('.'))
 git_base_url = "https://github.com/KazWolfe/WolfBot-SE/commit/"
@@ -56,7 +56,7 @@ def getVersionInfo(message, args):
 
     if (updateState == -1):
         versionString += " - Error checking for updates."
-    elif (updateState = 1):
+    elif (updateState == 1):
         versionString += " - Update to [`" \
             + updateCheck['latest'][-7:] + "`](" \
             + git_base_url + updateCheck['latest'] + ") available!"
@@ -92,7 +92,7 @@ def updateWolfbot(message, args):
         message.message.reply("Updated to commit [`" \
             + updateCheck['latest'][-7:] + "`](" + git_base_url \
             + updateCheck['latest'] + "). Bot restarting...")
-        BasePlugin.restart()
+        bp.restart()
         return None
     elif updateStatus >= 100:
         message.message.reply("Manual update necessary to resolve issues.")
