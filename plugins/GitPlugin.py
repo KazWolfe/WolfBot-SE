@@ -43,7 +43,7 @@ def getVersionInfo(message, args):
 
     versionString = "WolfBot version %A" + branch + "-" + commit[-7:] + "%B"
 
-    if updateState == 0:
+    if 0 <= updateState < 10:
         git_url = git_base_url + commit
         versionString = versionString.replace("%A", "[`")
         versionString = versionString.replace("%B", "`](" + git_url + ")")
@@ -56,6 +56,10 @@ def getVersionInfo(message, args):
 
     if (updateState == -1):
         versionString += " - Error checking for updates."
+    elif (updateState = 1):
+        versionString += " - Update to [`" \
+            + updateCheck['latest'][-7:] + "`](" \
+            + git_base_url + updateCheck['latest'] + ") available!"
     elif (updateState == 100):
         versionString += " - unversioned, origin's latest [`" \
             + updateCheck['latest'][-7:] + "`](" \
