@@ -9,7 +9,7 @@ from WolfPlugin import registerCommand, registerTask, registerListener
 from WolfPrefs import PREFS
 from WolfPrefs import SESSION_STORAGE
 
-import ./BasePlugin
+import plugins.BasePlugin
 
 gitRepo = Repo(os.path.abspath('.'))
 git_base_url = "https://github.com/KazWolfe/WolfBot-SE/commit/"

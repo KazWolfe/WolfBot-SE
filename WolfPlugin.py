@@ -85,6 +85,7 @@ class ScheduledTaskManager:
                     taskEntry = self._tasks[task]
                     if (int(time.time()) - taskEntry["lastRun"]) >= taskEntry["runDelay"]:
                         # print("Running task " + task)
+			print("Running task " + str(task) + " in room " + room + " Entry: " + str(taskEntry))
                         taskEntry["function"](room)
                         taskEntry["lastRun"] = calendar.timegm(time.gmtime())
                         # print("Finished task " + task)

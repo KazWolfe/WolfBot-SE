@@ -192,9 +192,9 @@ def getfilter(message, args):
 def taskRunFilter(room):
     global LAST_PULL_TIME
 
-    FILTER_URL = PREFS.get(room.id, "word_filter_source")
-    WORD_BLACKLIST = PREFS.get(room.id, "word_filter_blacklist", [])
-    WORD_WHITELIST = PREFS.get(room.data, "word_filter_whitelist", [])
+    FILTER_URL = PREFS.get(room, "word_filter_source")
+    WORD_BLACKLIST = PREFS.get(room, "word_filter_blacklist", [])
+    WORD_WHITELIST = PREFS.get(room, "word_filter_whitelist", [])
 
     if FILTER_URL is None:
         print("[E] Unable to run task! Filter URL is empty.")
