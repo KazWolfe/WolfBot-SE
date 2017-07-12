@@ -268,7 +268,7 @@ def deltask(message, args):
         message.message.reply("This task is already listed as enabled!")
     else:
         currentTasks.append(args[0])
-        PREFS.set(room, "enabled_tasks", currentTasks)
+        PREFS.set(message.data['room_id'], "enabled_tasks", currentTasks)
         message.message.reply("The task `" + args[0] + "` is now enabled for this room. Note that it may still need configuration.")
 
 @registerCommand("deltask", "Remove a task from the list of tasks executable by the bot.", "", {"adminNeeded": True})
@@ -283,7 +283,7 @@ def deltask(message, args):
         message.message.reply("This task is not listed as enabled!")
     else:
         currentTasks.remove(args[0])
-        PREFS.set(room, "enabled_tasks", currentTasks)
+        PREFS.set(message.data['room_id'], "enabled_tasks", currentTasks)
         message.message.reply("The task `" + args[0] + "` is now disabled for this room. Note that it may still need configuration.")
 
 @registerListener("modtool-deletemsg", 18)

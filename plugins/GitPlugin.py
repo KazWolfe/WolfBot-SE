@@ -15,10 +15,10 @@ gitRepo = Repo(os.path.abspath('.'))
 git_base_url = "https://github.com/KazWolfe/WolfBot-SE/commit/"
 
 def getLatestVersionInfo(branch):
+    latestRemote = str(git.remote.Remote(gitRepo, 'origin').fetch()[0].commit)
+
     onRemote = list(gitRepo.iter_commits(branch + '..origin/' + branch))
     onLocal = list(gitRepo.iter_commits('origin/' + branch + '..' + branch))
-
-    latestRemote = str(git.remote.Remote(gitRepo, 'origin').fetch()[0].commit)
 
     state = -1
 
@@ -85,8 +85,9 @@ def updateWolfbot(message, args):
         return None
     elif updateStatus == 1:
         origin.pull()
-        message.message.reply("Updated to commit `" \
-            + updateCheck['latest'][-7] + "`. Bot restarting...")
+        message.message.reply("Updated to commit [`" \
+            + updateCheck['latest'][-7:] + "`](" + git_base_url \
+            + updateCheck['latest'] + "). Bot restarting...")
         restart()
         return None
     elif updateStatus >= 100:
