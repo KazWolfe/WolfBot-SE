@@ -10,6 +10,7 @@ This is a very simple little chatbot for StackExchange stuff. It features a very
 ```
 pip install beautifulsoup4
 pip install websocket-client
+pip install GitPython
 ```    
     
 2. Run `python WolfCore.py`
