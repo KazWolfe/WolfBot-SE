@@ -1,5 +1,6 @@
 import WolfUtils
 import os
+import sys
 
 import ChatExchange.chatexchange as chatexchange
 from git import Repo
@@ -8,8 +9,6 @@ import git
 from WolfPlugin import registerCommand, registerTask, registerListener
 from WolfPrefs import PREFS
 from WolfPrefs import SESSION_STORAGE
-
-import plugins.BasePlugin as bp
 
 gitRepo = Repo(os.path.abspath('.'))
 git_base_url = "https://github.com/KazWolfe/WolfBot-SE/commit/"
@@ -92,7 +91,7 @@ def updateWolfbot(message, args):
         message.message.reply("Updated to commit [`" \
             + updateCheck['latest'][-7:] + "`](" + git_base_url \
             + updateCheck['latest'] + "). Bot restarting...")
-        bp.restart()
+        os.execl(sys.executable, sys.executable, *sys.argv)
         return None
     elif updateStatus >= 100:
         message.message.reply("Manual update necessary to resolve issues.")
